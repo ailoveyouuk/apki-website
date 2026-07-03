@@ -1,0 +1,182 @@
+@import "tailwindcss";
+
+:root {
+  --apki-green: #28730a;
+  --apki-yellow: #acab0f;
+  --apki-charcoal: #3a3a3a;
+  --apki-navy: #01233f;
+}
+
+@theme inline {
+  --color-apki-green: var(--apki-green);
+  --color-apki-yellow: var(--apki-yellow);
+  --color-apki-charcoal: var(--apki-charcoal);
+  --color-apki-navy: var(--apki-navy);
+  --font-heading: "Oswald", Arial, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: "Oswald", Arial, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+
+@keyframes flow-dash {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+.flow-line {
+  stroke-dasharray: 6 6;
+  animation: flow-dash 1.2s linear infinite;
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+
+.pulse-soft {
+  animation: pulse-soft 2.4s ease-in-out infinite;
+}
+
+@keyframes drift {
+  0% { transform: translateX(-6%); }
+  50% { transform: translateX(6%); }
+  100% { transform: translateX(-6%); }
+}
+
+.drift {
+  animation: drift 10s ease-in-out infinite;
+}
+
+/* Ambient pixel field: scattered square "pixels" that twinkle independently.
+   A uniform drifting dot-grid is invisible to the eye (every tile looks the
+   same as its neighbour), so instead each pixel is placed individually and
+   animates opacity/scale on its own timer — reads as a quiet, living texture. */
+@keyframes pixel-twinkle {
+  0%, 100% {
+    opacity: var(--pixel-opacity-min, 0.12);
+    transform: scale(1);
+  }
+  50% {
+    opacity: var(--pixel-opacity-max, 0.5);
+    transform: scale(1.4);
+  }
+}
+
+.pixel-twinkle {
+  animation-name: pixel-twinkle;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+/* Foreground pixel glyphs (e.g. power-source icons) — a brighter, slower
+   breathing pulse so each glyph reads as "alive" rather than decorative. */
+@keyframes pixel-pulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+}
+
+.pixel-pulse {
+  animation: pixel-pulse 2.8s ease-in-out infinite;
+}
+
+/* Shared prose styling for legal/policy pages (Privacy, Terms, Cookies,
+   Accessibility, Modern Slavery) so each page can just write plain
+   h2/p/ul markup instead of repeating utility classes throughout. */
+.legal-prose h2 {
+  margin-top: 2.5rem;
+  font-family: "Oswald", Arial, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--apki-navy);
+}
+
+.legal-prose h2:first-child {
+  margin-top: 0;
+}
+
+.legal-prose p {
+  margin-top: 0.9rem;
+  color: rgba(58, 58, 58, 0.8);
+  line-height: 1.7;
+}
+
+.legal-prose ul {
+  margin-top: 0.9rem;
+  padding-left: 1.25rem;
+  list-style: disc;
+  color: rgba(58, 58, 58, 0.8);
+  line-height: 1.7;
+}
+
+.legal-prose li {
+  margin-top: 0.35rem;
+}
+
+.legal-prose a {
+  color: var(--apki-green);
+  text-decoration: underline;
+}
+
+.legal-prose strong {
+  color: var(--apki-navy);
+}
+
+/* FAQ accordion — native <details>/<summary>, just restyled. */
+.faq-item summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item .faq-icon {
+  transition: transform 300ms ease;
+}
+
+.faq-item[open] .faq-icon {
+  transform: rotate(45deg);
+}
+
+/* Stepped / chamfered corners on imagery — a quiet nod to pixel-art without
+   pixelating the photography itself. */
+.pixel-frame {
+  clip-path: polygon(
+    16px 0,
+    calc(100% - 16px) 0,
+    100% 16px,
+    100% calc(100% - 16px),
+    calc(100% - 16px) 100%,
+    16px 100%,
+    0 calc(100% - 16px),
+    0 16px
+  );
+}
+
+/* Dashed, square-capped connector lines used by the feature diagram — reads as a
+   circuit trace rather than a smooth curve. */
+.pixel-line {
+  border-top-style: dashed;
+  border-top-width: 2px;
+}
