@@ -2,19 +2,24 @@
 
 import { useState } from "react";
 
-type Status = "idle" | "sending" | "sent" | "error";
+const RECIPIENT = "alan@apkindustries.com";
 
 export default function ContactForm() {
-  const [status, setStatus] = useState<Status>("idle");
+  const [opened, setOpened] = useState(false);
 
-  if (status === "sent") {
+  if (opened) {
     return (
       <div className="rounded-sm border border-apki-green/30 bg-apki-green/5 p-8 text-center">
         <h3 className="font-heading text-xl font-bold text-apki-green">
-          Thank you — message received.
+          Your email app should now be open.
         </h3>
         <p className="mt-2 text-sm text-apki-charcoal/70">
-          A member of the APKI team will be in touch shortly.
+          We&apos;ve drafted a message to the APKI team with your details filled
+          in — just hit send from there. If nothing opened, email us directly at{" "}
+          <a href={`mailto:${RECIPIENT}`} className="underline">
+            {RECIPIENT}
+          </a>
+          .
         </p>
       </div>
     );
@@ -22,46 +27,40 @@ export default function ContactForm() {
 
   return (
     <form
-      onSubmit={async (e) => {
+      onSubmit={(e) => {
         e.preventDefault();
-        setStatus("sending");
 
         const form = e.currentTarget;
-        const formData = new FormData(form);
-        formData.append(
-          "access_key",
-          process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? ""
-        );
-        formData.append("subject", "New enquiry from apkindustries.com");
-        formData.append("from_name", "APKI Website Contact Form");
+        const data = new FormData(form);
+        const name = data.get("name") as string;
+        const organisation = data.get("organisation") as string;
+        const email = data.get("email") as string;
+        const phone = data.get("phone") as string;
+        const interest = data.get("interest") as string;
+        const message = data.get("message") as string;
 
-        try {
-          const response = await fetch("https://api.web3forms.com/submit", {
-            method: "POST",
-            body: formData,
-          });
-          const result = await response.json();
+        const subject = `Website enquiry — ${interest}`;
+        const body = [
+          `Name: ${name}`,
+          `Organisation: ${organisation}`,
+          `Email: ${email}`,
+          phone ? `Phone: ${phone}` : null,
+          `Area of interest: ${interest}`,
+          "",
+          message,
+        ]
+          .filter(Boolean)
+          .join("\n");
 
-          if (result.success) {
-            setStatus("sent");
-          } else {
-            setStatus("error");
-          }
-        } catch {
-          setStatus("error");
-        }
+        const mailto = `mailto:${RECIPIENT}?subject=${encodeURIComponent(
+          subject
+        )}&body=${encodeURIComponent(body)}`;
+
+        window.location.href = mailto;
+        setOpened(true);
       }}
       className="space-y-5"
     >
-      {/* Honeypot — hidden from real visitors, catches simple spam bots */}
-      <input
-        type="checkbox"
-        name="botcheck"
-        className="hidden"
-        style={{ display: "none" }}
-        tabIndex={-1}
-        autoComplete="off"
-      />
       <div className="grid gap-5 sm:grid-cols-2">
         <Field label="Name" name="name" type="text" required />
         <Field label="Organisation" name="organisation" type="text" required />
@@ -99,23 +98,12 @@ export default function ContactForm() {
           placeholder="Tell us about your deployment requirements..."
         />
       </div>
-      {status === "error" && (
-        <p className="text-sm font-semibold text-red-600">
-          Something went wrong sending your message. Please try again, or email us
-          directly at{" "}
-          <a href="mailto:alan@apkindustries.com" className="underline">
-            alan@apkindustries.com
-          </a>
-          .
-        </p>
-      )}
 
       <button
         type="submit"
-        disabled={status === "sending"}
-        className="rounded-sm bg-apki-green px-8 py-3.5 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:bg-apki-navy disabled:cursor-not-allowed disabled:opacity-60"
+        className="rounded-sm bg-apki-green px-8 py-3.5 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:bg-apki-navy"
       >
-        {status === "sending" ? "Sending…" : "Send Message"}
+        Send Message
       </button>
     </form>
   );
