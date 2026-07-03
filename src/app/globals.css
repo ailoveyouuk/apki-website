@@ -180,3 +180,23 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   border-top-style: dashed;
   border-top-width: 2px;
 }
+
+/* World-map deployment markers (PixelWorldMap) — small pulsing site pixels.
+   transform-box/-origin keep the scale centred on the pixel itself rather
+   than the SVG viewport origin, which is what SVG transforms default to. */
+@keyframes map-pulse {
+  0%, 100% {
+    opacity: 0.08;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.16;
+    transform: scale(1.25);
+  }
+}
+
+.map-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: map-pulse 2.6s ease-in-out infinite;
+}

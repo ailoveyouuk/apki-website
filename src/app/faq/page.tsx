@@ -1,21 +1,26 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import PixelField from "@/components/PixelField";
 import Reveal from "@/components/Reveal";
 
 export const metadata: Metadata = {
   title: "FAQ | APKI",
   description:
-    "Common questions about the APKI 2200Li Portable Power Station, deployment, certification, and procurement.",
+    "Common questions about the APKI 2200Li Portable Power Station, its independent medical-equipment testing, deployment, certification, and procurement.",
 };
 
 const faqs = [
+  {
+    q: "Is it safe to use with medical equipment?",
+    a: "Yes. It has been third-party tested at Queens Medical Centre, Nottingham, on the real medical equipment it's built to power — dialysis machines, powered hospital beds, specialist mattresses, medicine fridges, oxygen concentrators, CPAP/BiPAP machines, nebulisers, and suction machines.",
+  },
   {
     q: "What is the APKI 2200Li?",
     a: "A ruggedised, zero-emission Portable Power Station — 2220Wh of lithium battery capacity outputting pure sine wave AC, USB, and 12V DC, designed to be carried and deployed by one person.",
   },
   {
     q: "Who is APKI built for?",
-    a: "UK Distribution Network Operators, healthcare providers and home carers, utilities, and emergency services, and — increasingly — NGOs, aid agencies, and defence and government procurement teams operating in the field.",
+    a: "Healthcare providers and home carers, UK Distribution Network Operators, utilities and emergency services, and NGOs, aid agencies, and defence and government procurement teams operating in the field.",
   },
   {
     q: "Can it be used outdoors and in the field?",
@@ -26,12 +31,8 @@ const faqs = [
     a: "From any accepted source: grid/mains AC, an 18–30V solar PV array, a 12/24V vehicle supply, or a petrol/diesel generator's AC output — whichever is available.",
   },
   {
-    q: "Is it safe to use with medical equipment?",
-    a: "It has been third-party tested at Queens Medical Centre, Nottingham, on real medical equipment including dialysis machines, powered hospital beds, medicine fridges, and oxygen concentrators/CPAP.",
-  },
-  {
     q: "What certifications does it hold?",
-    a: "ISO 9001 and ISO 14001 (UKAS-accredited), RoHS, CE/UKCA marking, and compliance with relevant EMC and product safety directives. The unit is also WEEE take-back compliant at end of life.",
+    a: "ISO 9001 and ISO 14001 (UKAS-accredited via Amtivo/British Assessment Bureau), RoHS, CE/UKCA marking, and compliance with relevant EMC and product safety directives. The unit is also WEEE take-back compliant at end of life.",
   },
   {
     q: "What warranty is included?",
@@ -43,7 +44,7 @@ const faqs = [
   },
   {
     q: "Do you supply internationally?",
-    a: "We're actively expanding beyond the UK utility and home-medical market into humanitarian, NGO, and defence deployment worldwide. Get in touch with your requirements and we'll advise on availability and lead times.",
+    a: "Yes. APKI units are ready to deploy for humanitarian, NGO, defence, and international utility operations, in addition to our UK utility and home-medical customers. Get in touch with your requirements and we'll advise on availability and lead times.",
   },
   {
     q: "How do I request a deployment or quote?",
@@ -53,8 +54,9 @@ const faqs = [
 
 export default function FaqPage() {
   return (
-    <section className="bg-white py-20 lg:py-28">
-      <div className="mx-auto max-w-3xl px-6 lg:px-10">
+    <section className="relative overflow-hidden bg-white py-20 lg:py-28">
+      <PixelField />
+      <div className="relative z-10 mx-auto max-w-3xl px-6 lg:px-10">
         <p className="text-sm font-semibold uppercase tracking-[0.2em] text-apki-green">
           Support
         </p>

@@ -1,6 +1,10 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { compliance } from "@/lib/content";
+import PartnerLogos from "@/components/PartnerLogos";
+import PixelField from "@/components/PixelField";
+import PixelIcon, { CROSS_CIRCLE, SHIELD } from "@/components/PixelIcon";
+import Reveal from "@/components/Reveal";
+import { certifications, compliance, medicalTesting, partnerLogos } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Quality & Compliance | APKI",
@@ -30,8 +34,9 @@ const policies = [
 export default function QualityCompliancePage() {
   return (
     <>
-      <section className="bg-white py-20">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10">
+      <section className="relative overflow-hidden bg-white py-20">
+        <PixelField />
+        <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-10">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-apki-green">
             Compliance First
           </p>
@@ -40,29 +45,94 @@ export default function QualityCompliancePage() {
           </h1>
           <p className="mt-5 max-w-2xl text-lg text-apki-charcoal/75">
             Every APKI unit is fully compliant — reducing procurement risk and
-            paperwork for decision-makers, whether you&apos;re a UK utility, an NGO
-            procurement office, or a defence logistics team.
+            paperwork for decision-makers, whether you&apos;re an NHS or home-care
+            buyer, a UK utility, an NGO procurement office, or a defence logistics
+            team.
           </p>
+        </div>
+      </section>
+
+      {/* Real-world medical testing — the credential that matters most */}
+      <section className="relative overflow-hidden bg-apki-navy py-20 text-white lg:py-24">
+        <PixelField />
+        <div className="relative z-10 mx-auto max-w-5xl px-6 lg:px-10">
+          <Reveal className="text-center">
+            <PixelIcon
+              bitmap={CROSS_CIRCLE}
+              className="pixel-pulse mx-auto h-9 w-9"
+              color="var(--apki-yellow)"
+            />
+            <p className="mt-5 text-sm font-semibold uppercase tracking-[0.2em] text-apki-yellow">
+              {medicalTesting.site}
+            </p>
+            <h2 className="mx-auto mt-4 max-w-2xl font-heading text-3xl font-bold sm:text-4xl">
+              {medicalTesting.headline}
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-white/75">{medicalTesting.detail}</p>
+          </Reveal>
+          <div className="mt-10 grid gap-3 border-t border-white/10 pt-8 sm:grid-cols-2 lg:grid-cols-4">
+            {medicalTesting.equipmentExamples.map((item, i) => (
+              <Reveal
+                key={item}
+                delay={i * 60}
+                className="flex items-center gap-3 rounded-sm border border-white/10 bg-white/5 px-4 py-3"
+              >
+                <span className="h-1.5 w-1.5 shrink-0 bg-apki-yellow" />
+                <span className="text-sm text-white/85">{item}</span>
+              </Reveal>
+            ))}
+          </div>
+          <Reveal delay={250} className="mt-6 text-center">
+            <p className="text-sm text-white/60">
+              Among several other categories of home medical equipment.{" "}
+              <Link href="/case-studies" className="font-semibold text-apki-yellow hover:underline">
+                See the full testing evidence ↗
+              </Link>
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Recognised marks — the actual badges, not just the standard names */}
+      <section className="bg-white py-16">
+        <div className="mx-auto max-w-6xl px-6 lg:px-10">
+          <p className="mb-8 text-center text-xs font-semibold uppercase tracking-wide text-apki-charcoal/50">
+            Recognised Certification Marks
+          </p>
+          <PartnerLogos items={partnerLogos.certifications} />
         </div>
       </section>
 
       <section className="bg-[#f5f6f2] py-16">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <div className="grid gap-8 sm:grid-cols-2">
-            <div className="rounded-sm bg-white p-8">
-              <h2 className="font-heading text-xl font-bold text-apki-navy">ISO 9001</h2>
-              <p className="mt-2 text-sm text-apki-charcoal/70">
-                Quality Management System, certified by British Assessment Bureau under
-                UKAS accreditation.
-              </p>
-            </div>
-            <div className="rounded-sm bg-white p-8">
-              <h2 className="font-heading text-xl font-bold text-apki-navy">ISO 14001</h2>
-              <p className="mt-2 text-sm text-apki-charcoal/70">
-                Environmental Management System, certified by British Assessment Bureau
-                under UKAS accreditation.
-              </p>
-            </div>
+            {certifications.map((cert) => (
+              <div key={cert.standard} className="pixel-frame flex gap-4 bg-white p-8">
+                <PixelIcon bitmap={SHIELD} className="mt-1 h-7 w-7 shrink-0" color="#28730A" />
+                <div>
+                  <h2 className="font-heading text-xl font-bold text-apki-navy">
+                    {cert.standard}
+                  </h2>
+                  <p className="mt-2 text-sm text-apki-charcoal/70">{cert.scope}</p>
+                  <dl className="mt-4 space-y-1 text-xs text-apki-charcoal/60">
+                    <div className="flex gap-2">
+                      <dt className="font-semibold uppercase tracking-wide">Certificate no.</dt>
+                      <dd>{cert.certNumber}</dd>
+                    </div>
+                    <div className="flex gap-2">
+                      <dt className="font-semibold uppercase tracking-wide">Issued by</dt>
+                      <dd>{cert.issuedBy}</dd>
+                    </div>
+                    <div className="flex gap-2">
+                      <dt className="font-semibold uppercase tracking-wide">Valid</dt>
+                      <dd>
+                        {cert.initialCertification} – {cert.expiry}
+                      </dd>
+                    </div>
+                  </dl>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -95,6 +165,26 @@ export default function QualityCompliancePage() {
                 <p className="mt-3 text-sm text-white/70">{p.text}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Clinical testing partner + government support */}
+      <section className="bg-white py-16">
+        <div className="mx-auto max-w-6xl px-6 lg:px-10">
+          <div className="grid gap-12 sm:grid-cols-2">
+            <div>
+              <p className="mb-5 text-center text-xs font-semibold uppercase tracking-wide text-apki-charcoal/50 sm:text-left">
+                Clinical Testing Partner
+              </p>
+              <PartnerLogos items={partnerLogos.clinical} caption={false} />
+            </div>
+            <div>
+              <p className="mb-5 text-center text-xs font-semibold uppercase tracking-wide text-apki-charcoal/50 sm:text-left">
+                Government &amp; Industry Support
+              </p>
+              <PartnerLogos items={partnerLogos.government} caption={false} />
+            </div>
           </div>
         </div>
       </section>

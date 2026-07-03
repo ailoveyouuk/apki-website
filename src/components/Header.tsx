@@ -35,7 +35,7 @@ export default function Header() {
             href="/contact"
             className="hidden rounded-sm bg-apki-green px-5 py-2.5 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:bg-apki-navy lg:inline-block"
           >
-            Request a Deployment
+            Partner With Us
           </Link>
         </nav>
 
@@ -67,7 +67,7 @@ export default function Header() {
             className="mt-2 inline-block rounded-sm bg-apki-green px-5 py-2.5 text-center text-sm font-semibold uppercase tracking-wide text-white"
             onClick={() => setOpen(false)}
           >
-            Request a Deployment
+            Partner With Us
           </Link>
         </div>
       )}

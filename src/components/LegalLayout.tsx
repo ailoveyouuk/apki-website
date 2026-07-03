@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import PixelField from "@/components/PixelField";
 
 export default function LegalLayout({
   eyebrow,
@@ -12,8 +13,9 @@ export default function LegalLayout({
   children: ReactNode;
 }) {
   return (
-    <section className="bg-white py-20 lg:py-28">
-      <div className="mx-auto max-w-3xl px-6 lg:px-10">
+    <section className="relative overflow-hidden bg-white py-20 lg:py-28">
+      <PixelField />
+      <div className="relative z-10 mx-auto max-w-3xl px-6 lg:px-10">
         <p className="text-sm font-semibold uppercase tracking-[0.2em] text-apki-green">
           {eyebrow}
         </p>

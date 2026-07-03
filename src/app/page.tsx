@@ -2,6 +2,7 @@ import Link from "next/link";
 import CountUp from "@/components/CountUp";
 import FeatureDiagram from "@/components/FeatureDiagram";
 import PixelField from "@/components/PixelField";
+import PixelWorldMap from "@/components/PixelWorldMap";
 import PixelIcon, {
   AMBULANCE,
   CAR,
@@ -9,32 +10,53 @@ import PixelIcon, {
   GENERATOR,
   HOUSE,
   PLUG,
+  SHIELD,
   SUN,
   TENT,
 } from "@/components/PixelIcon";
+import PartnerLogos from "@/components/PartnerLogos";
 import PixelUnionJack from "@/components/PixelUnionJack";
 import Reveal from "@/components/Reveal";
 import SnakeTimeline from "@/components/SnakeTimeline";
-import { dnoList } from "@/lib/content";
+import {
+  certifications,
+  medicalTesting,
+  partnerLogos,
+  sectors,
+  universalPower,
+} from "@/lib/content";
+
+const sectorIcons: Record<string, string[]> = {
+  HOUSE,
+  AMBULANCE,
+  CROSS_CIRCLE,
+  TENT,
+};
 
 export default function Home() {
   return (
     <>
-      {/* Hero — product front and centre, core functions labelled immediately */}
+      {/* Hero — the medical-device proof point leads, before anything else,
+          over a pixel-art world map reinforcing global reach from the UK */}
       <section className="relative overflow-hidden bg-white">
-        <PixelField />
+        <PixelWorldMap />
         <div className="relative z-10 mx-auto max-w-3xl px-6 pt-24 pb-4 text-center lg:pt-32">
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-apki-green">
-            Ruggedised Portable Power
+            Independently Tested. Medically Proven.
           </p>
           <h1 className="mt-6 font-heading text-6xl font-bold leading-[0.95] text-apki-navy sm:text-7xl lg:text-8xl">
-            Power that
+            Power that keeps
             <br />
-            arrives.
+            life-critical care running.
           </h1>
-          <p className="mx-auto mt-6 max-w-md text-apki-charcoal/70">
-            Zero-emission power stations that charge from anywhere and deploy
-            everywhere — home care, disaster response, the field.
+          <p className="mx-auto mt-6 max-w-2xl text-lg font-medium leading-snug text-apki-charcoal/90 sm:text-xl">
+            The APKI 2200Li is independently tested on the real medical
+            equipment it&apos;s built to power —{" "}
+            <span className="text-apki-navy">
+              dialysis machines, hospital beds, oxygen concentrators
+            </span>{" "}
+            — then engineered to charge from anywhere and deploy everywhere,
+            from a UK base to the rest of the world.
           </p>
           <div className="mt-5 flex items-center justify-center gap-2 text-xs font-semibold uppercase tracking-wide text-apki-charcoal/50">
             <PixelUnionJack className="h-3.5 w-7 shrink-0" />
@@ -42,10 +64,10 @@ export default function Home() {
           </div>
           <div className="mt-9 flex flex-wrap justify-center gap-4">
             <Link
-              href="/contact"
+              href="/case-studies"
               className="rounded-sm bg-apki-green px-7 py-3.5 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:bg-apki-navy"
             >
-              Request a Deployment
+              See the Testing Evidence
             </Link>
             <Link
               href="/product"
@@ -61,16 +83,76 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Charge from anywhere */}
+      {/* Proof — the show-stopper claim, right up top: real medical equipment,
+          real hospital, real credentials. Everything else on the site supports this. */}
+      <section className="relative overflow-hidden bg-apki-navy py-20 text-white lg:py-28">
+        <PixelField />
+        <div className="relative z-10 mx-auto max-w-5xl px-6">
+          <Reveal className="text-center">
+            <PixelIcon
+              bitmap={CROSS_CIRCLE}
+              className="pixel-pulse mx-auto h-10 w-10"
+              color="var(--apki-yellow)"
+            />
+            <p className="mt-5 text-sm font-semibold uppercase tracking-[0.25em] text-apki-yellow">
+              Not a simulated load. A real hospital.
+            </p>
+            <h2 className="mx-auto mt-4 max-w-3xl font-heading text-3xl font-bold sm:text-4xl">
+              {medicalTesting.headline}
+            </h2>
+            <p className="mx-auto mt-5 max-w-2xl text-white/75">
+              {medicalTesting.detail}
+            </p>
+          </Reveal>
+
+          <div className="mt-14 grid gap-3 border-t border-white/10 pt-10 sm:grid-cols-2 lg:grid-cols-4">
+            {medicalTesting.equipment.map((item, i) => (
+              <Reveal
+                key={item}
+                delay={i * 60}
+                className="flex items-center gap-3 rounded-sm border border-white/10 bg-white/5 px-4 py-3"
+              >
+                <span className="h-1.5 w-1.5 shrink-0 bg-apki-yellow" />
+                <span className="text-sm text-white/85">{item}</span>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal
+            delay={300}
+            className="mt-12 flex flex-wrap items-center justify-center gap-x-10 gap-y-4 border-t border-white/10 pt-8 text-center"
+          >
+            {certifications.map((cert) => (
+              <div key={cert.standard} className="flex items-center gap-2">
+                <PixelIcon bitmap={SHIELD} className="h-5 w-5" color="var(--apki-yellow)" />
+                <span className="text-sm font-medium text-white/85">
+                  {cert.standard} · Cert. {cert.certNumber}
+                </span>
+              </div>
+            ))}
+          </Reveal>
+
+          <Reveal delay={350} className="mt-10 text-center">
+            <Link
+              href="/contact?enquiry=data-sheets"
+              className="inline-block rounded-sm border-2 border-white px-7 py-3 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:bg-white hover:text-apki-navy"
+            >
+              Request Data Sheets
+            </Link>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Charge from anywhere — the second half of the pitch: medical-grade
+          reliability paired with input flexibility across any country's grid */}
       <section className="bg-apki-navy py-20 text-white lg:py-28">
         <div className="mx-auto max-w-5xl px-6 text-center">
           <Reveal>
             <h2 className="font-heading text-3xl font-bold sm:text-4xl">
-              Charge from any power source
+              {universalPower.headline}
             </h2>
             <p className="mx-auto mt-4 max-w-lg text-white/70">
-              Grid mains, solar PV, a 12/24V vehicle, or a generator — the unit
-              takes what&apos;s available and outputs clean, silent AC.
+              {universalPower.detail}
             </p>
           </Reveal>
 
@@ -78,7 +160,7 @@ export default function Home() {
             {[
               {
                 title: "Grid / Mains",
-                text: "Standard AC, wherever mains power is present.",
+                text: "Any voltage, frequency, or connector standard — accepts what the local grid provides.",
                 bitmap: PLUG,
                 color: "#ffffff",
               },
@@ -146,45 +228,28 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Deployment scenarios */}
+      {/* Sectors — not peer categories to "medical". Every one of these
+          sectors runs medical equipment in the field, which is exactly
+          where APKI's proven reliability applies. */}
       <section className="bg-white py-20 lg:py-28">
         <div className="mx-auto max-w-5xl px-6 text-center">
           <Reveal>
             <h2 className="font-heading text-3xl font-bold text-apki-navy sm:text-4xl">
-              Built for the moment power fails
+              One differentiator, every sector.
             </h2>
-            <p className="mx-auto mt-4 max-w-lg text-apki-charcoal/70">
-              The reliability that keeps dialysis machines running in UK homes,
-              now proven at the edge of a response operation.
+            <p className="mx-auto mt-4 max-w-xl text-apki-charcoal/70">
+              Home care, emergency response, humanitarian aid, and defence all
+              rely on the same category of equipment in the field — medical
+              devices. That&apos;s exactly what APKI is independently proven
+              on.
             </p>
           </Reveal>
 
           <div className="mt-14 grid gap-10 border-t border-black/10 pt-10 text-left sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              {
-                title: "Humanitarian Aid",
-                text: "Mobile power for NGOs and aid agencies in disaster zones and displacement camps.",
-                bitmap: CROSS_CIRCLE,
-              },
-              {
-                title: "Defence & Field Ops",
-                text: "Silent, zero-emission power in the field — no fuel logistics, no signature.",
-                bitmap: TENT,
-              },
-              {
-                title: "Emergency Services",
-                text: "Rapid-deploy backup power for ambulance stations, triage points, and incident response.",
-                bitmap: AMBULANCE,
-              },
-              {
-                title: "Home & Medical Care",
-                text: "Third-party tested on dialysis machines, hospital beds, and medicine fridges.",
-                bitmap: HOUSE,
-              },
-            ].map((item, i) => (
+            {sectors.map((item, i) => (
               <Reveal key={item.title} delay={i * 120}>
                 <PixelIcon
-                  bitmap={item.bitmap}
+                  bitmap={sectorIcons[item.bitmap]}
                   className="pixel-pulse h-8 w-8"
                   color="#28730A"
                   style={{ animationDelay: `${i * 0.4}s` }}
@@ -211,15 +276,15 @@ export default function Home() {
 
           <div className="mt-14 grid gap-10 border-t border-black/10 pt-10 sm:grid-cols-2 lg:grid-cols-4">
             <Stat
-              to={4}
-              suffix=" of 6"
-              label="UK DNOs deploy APKI units for vulnerable customers"
+              to={8}
+              suffix=" types"
+              label="Categories of home medical equipment independently tested"
               delay={0}
             />
             <Stat
-              to={23}
-              suffix="M+"
-              label="Customers across DNO territories on standby coverage"
+              to={4}
+              suffix=" of 6"
+              label="UK DNOs deploy APKI units for vulnerable customers"
               delay={100}
             />
             <Stat
@@ -238,19 +303,50 @@ export default function Home() {
             />
           </div>
 
-          <Reveal
-            delay={400}
-            className="mt-14 flex flex-wrap items-center justify-center gap-x-10 gap-y-4 border-t border-black/10 pt-8"
-          >
-            <span className="text-xs font-semibold uppercase tracking-wide text-apki-charcoal/50">
-              Deployed via
-            </span>
-            {dnoList.map((dno) => (
-              <span key={dno} className="text-sm font-medium text-apki-navy">
-                {dno}
-              </span>
-            ))}
+        </div>
+      </section>
+
+      {/* Trusted by — the logo wall: energy networks, the NHS testing
+          partner, certification bodies, and government support, all in one
+          place so the credibility claims above are backed by recognisable
+          marks rather than just text. */}
+      <section className="bg-white py-20 lg:py-28">
+        <div className="mx-auto max-w-6xl px-6 lg:px-10">
+          <Reveal className="text-center">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-apki-green">
+              Certified, Tested, Trusted
+            </p>
+            <h2 className="mt-4 font-heading text-3xl font-bold text-apki-navy sm:text-4xl">
+              Backed by the organisations that matter.
+            </h2>
           </Reveal>
+
+          <div className="mt-14 space-y-12">
+            <div>
+              <p className="mb-5 text-center text-xs font-semibold uppercase tracking-wide text-apki-charcoal/50">
+                UK Energy Network Partners
+              </p>
+              <PartnerLogos items={partnerLogos.energyNetworks} />
+            </div>
+            <div>
+              <p className="mb-5 text-center text-xs font-semibold uppercase tracking-wide text-apki-charcoal/50">
+                Clinical Testing Partner
+              </p>
+              <PartnerLogos items={partnerLogos.clinical} />
+            </div>
+            <div>
+              <p className="mb-5 text-center text-xs font-semibold uppercase tracking-wide text-apki-charcoal/50">
+                Certifications &amp; Compliance
+              </p>
+              <PartnerLogos items={partnerLogos.certifications} />
+            </div>
+            <div>
+              <p className="mb-5 text-center text-xs font-semibold uppercase tracking-wide text-apki-charcoal/50">
+                Government &amp; Industry Support
+              </p>
+              <PartnerLogos items={partnerLogos.government} />
+            </div>
+          </div>
         </div>
       </section>
 
@@ -261,14 +357,15 @@ export default function Home() {
             Access to power is a right, not a privilege.
           </h2>
           <p className="mx-auto mt-4 max-w-md text-white/85">
-            Need ruggedised, deployable power for humanitarian, defence, or
-            emergency response operations? Talk to us.
+            Proven on real medical equipment at Queens Medical Centre,
+            Nottingham — and ready for utilities, emergency services,
+            humanitarian, and defence deployment. Talk to us.
           </p>
           <Link
             href="/contact"
             className="mt-8 inline-block rounded-sm bg-white px-8 py-4 text-sm font-semibold uppercase tracking-wide text-apki-green transition-colors hover:bg-apki-navy hover:text-white"
           >
-            Start a Conversation
+            Partner With Us
           </Link>
         </Reveal>
       </section>

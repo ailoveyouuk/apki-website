@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import LinkedInFeed from "@/components/LinkedInFeed";
+import PixelField from "@/components/PixelField";
+import PixelIcon, { CROSS_CIRCLE, SHIELD } from "@/components/PixelIcon";
 import PixelUnionJack from "@/components/PixelUnionJack";
 import Reveal from "@/components/Reveal";
 import SnakeTimeline from "@/components/SnakeTimeline";
@@ -9,7 +11,7 @@ import SnakeTimeline from "@/components/SnakeTimeline";
 export const metadata: Metadata = {
   title: "Company | APKI",
   description:
-    "From AP Kawasaki in 1994 to pioneers in energy equality — APKI's story, vision, and mission as it expands into humanitarian aid and defence deployment.",
+    "From AP Kawasaki in 1994 to pioneers in energy equality — APKI's story, vision, and mission, trusted across UK utilities, home medical care, humanitarian aid, and defence deployment.",
 };
 
 const leadership = [
@@ -17,14 +19,14 @@ const leadership = [
     initials: "AG",
     name: "Alan Greig",
     title: "Founder",
-    bio: "Alan founded APKI in response to a challenge from the Energy Innovation Centre, on behalf of three UK Distribution Network Operators: build a fully compliant portable power solution, with no compromises. That challenge became the APKI 2200Li, now trusted by four of the UK's six DNOs — and Alan is now driving the company's expansion into humanitarian aid, NGO, and defence deployment worldwide.",
+    bio: "Alan founded APKI in response to a challenge from the Energy Innovation Centre, on behalf of three UK Distribution Network Operators: build a fully compliant portable power solution, with no compromises. That challenge became the APKI 2200Li, now trusted by four of the UK's six DNOs — and Alan leads the company's work across humanitarian aid, NGO, and defence deployment worldwide.",
     linkedin: "https://www.linkedin.com/in/apkindustries/",
   },
   {
     initials: "LW",
     name: "Lucy Watts",
     title: "Head of Policy and Partnerships",
-    bio: "Lucy leads policy engagement and partnership development as APKI expands beyond UK utilities into humanitarian aid, NGOs, and defence. Her background in bid and tender writing, funding, and policy communications for mission-led organisations underpins the partnerships APKI is building with NGOs, charities, and aid agencies worldwide.",
+    bio: "Lucy leads policy engagement and partnership development across APKI's UK utility, humanitarian aid, NGO, and defence work. Her background in bid and tender writing, funding, and policy communications for mission-led organisations underpins the partnerships APKI holds with NGOs, charities, and aid agencies worldwide.",
     linkedin: "https://www.linkedin.com/in/lucy-watts/",
   },
 ];
@@ -32,8 +34,9 @@ const leadership = [
 export default function CompanyPage() {
   return (
     <>
-      <section className="bg-white py-20">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10">
+      <section className="relative overflow-hidden bg-white py-20">
+        <PixelField />
+        <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-10">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-apki-green">
             Our Story
           </p>
@@ -43,8 +46,10 @@ export default function CompanyPage() {
           <p className="mt-5 max-w-2xl text-lg text-apki-charcoal/75">
             APK Industries began in generators and garden machinery. Three decades
             later, it&apos;s a UKAS-accredited manufacturer of zero-emission portable
-            power, trusted by four of the UK&apos;s six energy networks — and now
-            building toward humanitarian aid and defence deployment worldwide.
+            power, independently tested at Queens Medical Centre, Nottingham, to
+            keep life-critical medical equipment running — trusted by four of the
+            UK&apos;s six energy networks, and ready to deploy for humanitarian aid
+            and defence operations worldwide.
           </p>
           <div className="mt-5 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-apki-charcoal/50">
             <PixelUnionJack className="h-3.5 w-7 shrink-0" />
@@ -80,31 +85,36 @@ export default function CompanyPage() {
       </section>
 
       {/* Vision & Mission */}
-      <section className="bg-apki-navy py-20 text-white">
-        <div className="mx-auto grid max-w-7xl gap-10 px-6 md:grid-cols-2 lg:px-10">
+      <section className="relative overflow-hidden bg-apki-navy py-20 text-white">
+        <PixelField />
+        <div className="relative z-10 mx-auto grid max-w-7xl gap-10 px-6 md:grid-cols-2 lg:px-10">
           <div>
-            <h2 className="font-heading text-2xl font-bold text-apki-yellow">
+            <PixelIcon bitmap={CROSS_CIRCLE} className="h-7 w-7" color="var(--apki-yellow)" />
+            <h2 className="mt-4 font-heading text-2xl font-bold text-apki-yellow">
               Vision Statement
             </h2>
             <p className="mt-4 text-white/80">
-              Our vision is to become the global leader in pioneering sustainable
-              innovation in the portable power sector. We know through feedback from
-              DNOs how vital our equipment is in safeguarding those in need. As our
-              company grows, we aim to move and expand towards humanitarian aid work,
-              so that we can help more people.
+              Our vision is to be the global leader in sustainable innovation in
+              the portable power sector. We know through feedback from DNOs,
+              carers, and patients how vital our equipment is in safeguarding
+              life-critical care at home — and we bring that same reliability to
+              humanitarian aid work worldwide, so that more people can access
+              safe, resilient power.
             </p>
           </div>
           <div>
-            <h2 className="font-heading text-2xl font-bold text-apki-yellow">
+            <PixelIcon bitmap={SHIELD} className="h-7 w-7" color="var(--apki-yellow)" />
+            <h2 className="mt-4 font-heading text-2xl font-bold text-apki-yellow">
               Mission Statement
             </h2>
             <p className="mt-4 text-white/80">
               Our mission is simple. We believe that access to energy is a fundamental
               right, not a privilege. With this in mind, we strive to be a catalyst for
               positive change in the energy sector. Through cross-industry
-              collaboration, extensive testing, and innovative product design, we
-              create state-of-the-art technology to facilitate reliable, clean energy
-              outputs in even the most demanding conditions.
+              collaboration, extensive independent testing — including on real
+              medical equipment at Queens Medical Centre, Nottingham — and innovative
+              product design, we create state-of-the-art technology to facilitate
+              reliable, clean energy outputs in even the most demanding conditions.
             </p>
           </div>
         </div>
@@ -192,27 +202,26 @@ export default function CompanyPage() {
         </div>
       </section>
 
-      {/* Expansion narrative */}
-      <section className="bg-[#f5f6f2] py-20">
-        <div className="mx-auto max-w-4xl px-6 lg:px-10">
+      {/* Ready for the field */}
+      <section className="relative overflow-hidden bg-[#f5f6f2] py-20">
+        <PixelField />
+        <div className="relative z-10 mx-auto max-w-4xl px-6 lg:px-10">
           <h2 className="font-heading text-3xl font-bold text-apki-navy">
-            The Next Chapter: Humanitarian Aid &amp; Defence
+            Proven at Home. Ready for the Field.
           </h2>
           <p className="mt-4 text-apki-charcoal/75">
-            APKI does not yet operate in humanitarian aid or defence — but it is the
-            focus of where the company is heading next. Every capability that makes
-            the APKI 2200Li trustworthy inside a UK home during a life-critical medical
-            moment is exactly what NGOs, aid agencies, ministries, defence forces, and
-            emergency services need in the field: ruggedised construction, silent
-            zero-emission operation, charging from any available power source, and
-            remote monitoring that works without connectivity dependent on local
-            infrastructure.
+            Every capability that makes the APKI 2200Li trustworthy inside a UK
+            home during a life-critical medical moment is exactly what NGOs, aid
+            agencies, ministries, defence forces, and emergency services need in
+            the field: ruggedised construction, silent zero-emission operation,
+            charging from any available power source, and remote monitoring
+            that works without connectivity dependent on local infrastructure.
           </p>
           <p className="mt-4 text-apki-charcoal/75">
-            We&apos;re actively building partnerships with NGOs, charities, aid
-            agencies, intergovernmental organisations, emergency services, and
-            government and defence bodies who need mobile power that can save the
-            day in a pinch — wherever that day happens.
+            We work with NGOs, charities, aid agencies, intergovernmental
+            organisations, emergency services, and government and defence
+            bodies who need mobile power that can save the day in a pinch —
+            wherever that day happens.
           </p>
         </div>
       </section>
@@ -220,7 +229,7 @@ export default function CompanyPage() {
       <section className="bg-apki-green py-16 text-white">
         <div className="mx-auto flex max-w-4xl flex-col items-center gap-6 px-6 text-center lg:px-10">
           <h2 className="font-heading text-2xl font-bold sm:text-3xl">
-            Building toward the field, together.
+            Ready for the field, together.
           </h2>
           <Link
             href="/contact"

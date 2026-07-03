@@ -1,16 +1,18 @@
 import type { Metadata } from "next";
 import ContactForm from "@/components/ContactForm";
+import PixelField from "@/components/PixelField";
 
 export const metadata: Metadata = {
   title: "Contact | APKI",
   description:
-    "Get in touch with APK Industries about humanitarian, defence, utility, or medical power deployments.",
+    "Get in touch with APK Industries about medical, healthcare, humanitarian, defence, or utility power deployments.",
 };
 
 export default function ContactPage() {
   return (
-    <section className="bg-white py-20">
-      <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-2 lg:px-10">
+    <section className="relative overflow-hidden bg-white py-20">
+      <PixelField />
+      <div className="relative z-10 mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-2 lg:px-10">
         <div>
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-apki-green">
             Get in Touch
@@ -19,9 +21,9 @@ export default function ContactPage() {
             Let&apos;s talk deployment.
           </h1>
           <p className="mt-5 max-w-md text-apki-charcoal/75">
-            Whether you&apos;re an NGO, a defence procurement office, an emergency
-            services provider, a utility, or a healthcare provider, tell us about
-            your requirements and we&apos;ll be in touch.
+            Whether you&apos;re a healthcare provider, an NGO, a defence
+            procurement office, an emergency services provider, or a utility,
+            tell us about your requirements and we&apos;ll be in touch.
           </p>
 
           <div className="mt-10 space-y-2 text-sm text-apki-charcoal/80">
@@ -45,7 +47,7 @@ export default function ContactPage() {
           </div>
         </div>
 
-        <div className="rounded-sm bg-[#f5f6f2] p-8">
+        <div className="pixel-frame bg-[#f5f6f2] p-8">
           <ContactForm />
         </div>
       </div>

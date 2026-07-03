@@ -25,9 +25,8 @@ export default function ModernSlaveryPage() {
       <p>
         APK Industries Ltd designs and manufactures ruggedised, zero-emission
         Portable Power Stations, supplying UK Distribution Network Operators,
-        healthcare providers, utilities, and emergency services, and —
-        increasingly — humanitarian, NGO, and defence organisations operating
-        internationally.
+        healthcare providers, utilities, emergency services, and humanitarian,
+        NGO, and defence organisations operating internationally.
       </p>
 
       <h2>Our supply chain</h2>

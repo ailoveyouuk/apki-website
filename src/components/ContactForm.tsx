@@ -1,11 +1,39 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const RECIPIENT = "alan@apkindustries.com";
 
+const INTERESTS = [
+  "Humanitarian / NGO deployment",
+  "Defence / field operations",
+  "Emergency services",
+  "Utility / DNO procurement",
+  "Home / critical medical care",
+  "Documentation / data sheets",
+  "Other",
+];
+
 export default function ContactForm() {
   const [opened, setOpened] = useState(false);
+  const [interest, setInterest] = useState(INTERESTS[0]);
+  const [message, setMessage] = useState("");
+
+  // Pages can deep-link into a pre-filled enquiry, e.g. a "Request Data
+  // Sheets" button linking to /contact?enquiry=data-sheets.
+  useEffect(() => {
+    // Deep-linked query param, only knowable client-side — reading it and
+    // pre-filling the form here (rather than deriving it during render) is
+    // the correct use of an effect, despite the lint heuristic below.
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("enquiry") === "data-sheets") {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setInterest("Documentation / data sheets");
+      setMessage(
+        "Please send me the full data sheets and technical documentation for the APKI 2200Li."
+      );
+    }
+  }, []);
 
   if (opened) {
     return (
@@ -75,15 +103,13 @@ export default function ContactForm() {
         </label>
         <select
           name="interest"
+          value={interest}
+          onChange={(e) => setInterest(e.target.value)}
           className="w-full rounded-sm border border-black/15 bg-white px-4 py-3 text-apki-navy focus:border-apki-green focus:outline-none"
-          defaultValue="Humanitarian / NGO deployment"
         >
-          <option>Humanitarian / NGO deployment</option>
-          <option>Defence / field operations</option>
-          <option>Emergency services</option>
-          <option>Utility / DNO procurement</option>
-          <option>Home / critical medical care</option>
-          <option>Other</option>
+          {INTERESTS.map((option) => (
+            <option key={option}>{option}</option>
+          ))}
         </select>
       </div>
       <div>
@@ -94,6 +120,8 @@ export default function ContactForm() {
           name="message"
           required
           rows={5}
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
           className="w-full rounded-sm border border-black/15 bg-white px-4 py-3 text-apki-navy focus:border-apki-green focus:outline-none"
           placeholder="Tell us about your deployment requirements..."
         />

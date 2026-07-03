@@ -60,9 +60,9 @@ export const timeline = [
     text: "Units are equipped with enhanced remote monitoring, including G-force impact detection.",
   },
   {
-    year: "Next",
-    short: "Humanitarian, NGO & defence deployment",
-    text: "Field-proven in the UK's most safety-critical home care scenarios, APKI now takes this reliability into humanitarian aid, NGO, defence, and disaster-response deployment worldwide.",
+    year: "Today",
+    short: "Ready for humanitarian, NGO & defence deployment",
+    text: "Field-proven in the UK's most safety-critical home care scenarios, APKI brings that same reliability to humanitarian aid, NGO, defence, and disaster-response deployment worldwide.",
   },
 ];
 
@@ -95,6 +95,95 @@ export const compliance = [
   "Third-party UKAS test house (PPS), CNAS-accredited test house (battery pack)",
 ];
 
+// Formal certification records, as issued by Amtivo Group Ltd (t/a British
+// Assessment Bureau) — used wherever we cite certificate numbers/validity
+// rather than just naming the standard.
+export const certifications = [
+  {
+    standard: "ISO 9001:2015",
+    scope: "Design and supply of portable power stations to clients globally",
+    certNumber: "264834",
+    issuedBy: "Amtivo Group Ltd, t/a British Assessment Bureau (UKAS-accredited)",
+    initialCertification: "24 April 2025",
+    latestIssue: "24 April 2026",
+    expiry: "23 April 2028",
+  },
+  {
+    standard: "ISO 14001:2015",
+    scope: "Design and supply of portable power stations to clients globally",
+    certNumber: "265636",
+    issuedBy: "Amtivo Group Ltd, t/a British Assessment Bureau (UKAS-accredited)",
+    initialCertification: "24 April 2025",
+    latestIssue: "24 April 2026",
+    expiry: "23 April 2028",
+  },
+];
+
+// The independent, real-world medical-equipment testing programme that
+// underpins the "built to power medical devices" claim — sourced from the
+// product spec sheet and the NHS Innovation Overview submission.
+export const medicalTesting = {
+  site: "Queens Medical Centre, Nottingham, UK",
+  headline:
+    "Third-party tested on the full range of medical equipment used in UK home care settings.",
+  detail:
+    "The APKI 2200Li is third-party tested and certified to every standard required to operate medical equipment, and independently tested at Queens Medical Centre, Nottingham, on the real devices it's built to power — not simulated loads. To APKI's knowledge, it is the only portable power station tested across the complete range of medical equipment used in UK home settings.",
+  equipment: [
+    "Home dialysis machines",
+    "Electrically powered hospital beds",
+    "Specialist pressure-care mattresses",
+    "Domestic fridges for temperature-sensitive medicines",
+    "Oxygen concentrators",
+    "CPAP / BiPAP respiratory machines",
+    "Nebulisers",
+    "Suction machines",
+  ],
+  // A short, representative sample of the full equipment list above — used
+  // wherever we reference the testing programme in passing rather than
+  // listing it exhaustively.
+  equipmentExamples: [
+    "Home dialysis machines",
+    "Electrically powered hospital beds",
+    "Oxygen concentrators",
+    "Domestic fridges for temperature-sensitive medicines",
+  ],
+};
+
+// The cross-sector framing: medical-device reliability isn't a separate
+// vertical alongside aid, defence, and emergency response — it's the proof
+// point every one of those sectors depends on, because they all run medical
+// equipment in the field too.
+export const sectors = [
+  {
+    title: "Home & Critical Medical Care",
+    text: "The proving ground: dialysis machines, powered hospital beds, respiratory equipment, and medicine fridges, independently tested at Queens Medical Centre, Nottingham.",
+    bitmap: "HOUSE",
+  },
+  {
+    title: "Emergency Services",
+    text: "Ambulance stations and triage points run the same oxygen, monitoring, and infusion equipment — proven medical-grade reliability, on demand.",
+    bitmap: "AMBULANCE",
+  },
+  {
+    title: "Humanitarian Aid & NGOs",
+    text: "Field clinics and displacement camps depend on cold-chain vaccine storage, dialysis, and respiratory support — the exact equipment APKI is proven on.",
+    bitmap: "CROSS_CIRCLE",
+  },
+  {
+    title: "Defence & Field Operations",
+    text: "Combat medical units and field hospitals carry the same life-support and diagnostic equipment, silently powered with no fuel resupply chain.",
+    bitmap: "TENT",
+  },
+];
+
+// The second half of the pitch: input flexibility that matches medical-grade
+// reliability. Works off any source, at any rating, on any country's grid.
+export const universalPower = {
+  headline: "Any source. Any rating. Any country.",
+  detail:
+    "Grid mains, solar PV, a 12/24V vehicle, or a generator — the APKI 2200Li accepts a wide voltage and frequency range and outputs clean, silent AC regardless of the local supply standard. The same unit that's proven on medical equipment in a UK home works on the power available at a field hospital, a disaster response site, or a deployment anywhere in the world.",
+};
+
 export const caseStudies = [
   {
     title: "Home dialysis, uninterrupted",
@@ -125,3 +214,46 @@ export const dnoList = [
   "Scottish & Southern Energy Networks",
   "Electricity North West",
 ];
+
+// Partner and accreditation logos — trimmed to their own bounding box and
+// normalised to a common height so they sit consistently in a logo grid
+// regardless of source aspect ratio. Grouped by relationship type so pages
+// can pull just the group that's relevant to them.
+type PartnerLogo = { name: string; src: string; width: number; height: number };
+
+export const partnerLogos: {
+  energyNetworks: PartnerLogo[];
+  clinical: PartnerLogo[];
+  certifications: PartnerLogo[];
+  government: PartnerLogo[];
+} = {
+  energyNetworks: [
+    { name: "Northern Powergrid", src: "/images/partners/northern-powergrid.png", width: 1451, height: 300 },
+    { name: "Scottish Power Energy Networks", src: "/images/partners/scottish-power.png", width: 946, height: 300 },
+    { name: "Scottish & Southern Electricity Networks", src: "/images/partners/ssen.png", width: 1538, height: 300 },
+    { name: "Electricity North West", src: "/images/partners/electricity-north-west.png", width: 1203, height: 300 },
+  ],
+  clinical: [
+    {
+      name: "Nottingham University Hospitals NHS Trust",
+      src: "/images/partners/nottingham-hospitals.png",
+      width: 558,
+      height: 300,
+    },
+  ],
+  certifications: [
+    { name: "ISO 9001:2015", src: "/images/partners/iso-9001.png", width: 354, height: 300 },
+    { name: "ISO 14001:2015", src: "/images/partners/iso-14001.png", width: 300, height: 300 },
+    { name: "UKAS Testing", src: "/images/partners/ukas.png", width: 231, height: 300 },
+    { name: "RoHS Compliant", src: "/images/partners/rohs.png", width: 300, height: 300 },
+    { name: "UKCA / CE Marked", src: "/images/partners/ukca-ce.png", width: 722, height: 300 },
+  ],
+  government: [
+    {
+      name: "Department for Business & Trade — GREAT Britain & Northern Ireland",
+      src: "/images/partners/dbt-great.png",
+      width: 1149,
+      height: 300,
+    },
+  ],
+};

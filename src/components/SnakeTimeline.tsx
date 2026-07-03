@@ -89,7 +89,7 @@ export default function SnakeTimeline() {
 
   elements.push(<VConnector key="v2" col={1} row={4} visible={visible} delay={delay()} />);
 
-  // Row 3 — grid row 5, columns 1/3/5, left to right (13th = "the future").
+  // Row 3 — grid row 5, columns 1/3/5, left to right (13th = today, highlighted).
   ROW3.forEach((idx, i) => {
     const col = i * 2 + 1;
     elements.push(
@@ -121,7 +121,7 @@ export default function SnakeTimeline() {
       <div className="relative -space-y-3 lg:hidden">
         <div className="absolute left-1/2 top-0 h-full w-0 -translate-x-1/2 border-l-2 border-dashed border-apki-green/30" />
         {timeline.map((item, i) => {
-          const isFuture = i === timeline.length - 1;
+          const isCurrent = i === timeline.length - 1;
           const side = i % 2 === 0 ? "left" : "right";
           return (
             <div key={item.year} className="relative py-2">
@@ -140,7 +140,7 @@ export default function SnakeTimeline() {
               >
                 <div
                   className={`font-heading text-base font-bold ${
-                    isFuture ? "text-apki-green" : "text-apki-navy"
+                    isCurrent ? "text-apki-green" : "text-apki-navy"
                   }`}
                 >
                   {item.year}
@@ -171,13 +171,13 @@ function Node({
   delay: number;
 }) {
   const item = timeline[idx];
-  const isFuture = idx === timeline.length - 1;
+  const isCurrent = idx === timeline.length - 1;
 
   return (
     <div style={{ gridColumn: col, gridRow: row }} className="flex items-center justify-center px-2 py-3">
       <div
         className={`pixel-frame w-full p-4 transition-all duration-500 xl:p-5 ${
-          isFuture ? "bg-apki-green" : "bg-white"
+          isCurrent ? "bg-apki-green" : "bg-white"
         }`}
         style={{
           opacity: visible ? 1 : 0,
@@ -185,7 +185,7 @@ function Node({
           transitionDelay: `${delay}ms`,
         }}
       >
-        {isFuture && (
+        {isCurrent && (
           <PixelIcon
             bitmap={BOLT}
             className="pixel-pulse mb-2 h-5 w-5"
@@ -194,14 +194,14 @@ function Node({
         )}
         <div
           className={`font-heading text-xl font-bold xl:text-2xl ${
-            isFuture ? "text-white" : "text-apki-navy"
+            isCurrent ? "text-white" : "text-apki-navy"
           }`}
         >
           {item.year}
         </div>
         <p
           className={`mt-1 text-xs leading-snug xl:text-sm ${
-            isFuture ? "text-white/85" : "text-apki-charcoal/65"
+            isCurrent ? "text-white/85" : "text-apki-charcoal/65"
           }`}
         >
           {item.short}

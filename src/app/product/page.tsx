@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import CountUp from "@/components/CountUp";
 import LiveryGallery from "@/components/LiveryGallery";
 import PixelField from "@/components/PixelField";
+import PixelWorldMap from "@/components/PixelWorldMap";
 import PixelIcon, {
   BATTERY,
   BOLT,
@@ -46,7 +47,7 @@ const keyFacts: {
   { to: 2000, decimals: 0, prefix: "", suffix: "W", label: "Continuous rated power output", bitmap: BOLT },
   { to: 18.9, decimals: 1, prefix: "", suffix: "kg", label: "Single-person portable weight", bitmap: WEIGHT },
   { to: 10, decimals: 0, prefix: "≤", suffix: "hrs", label: "Full recharge, empty to 100%", bitmap: CLOCK },
-  { to: 4, decimals: 0, prefix: "", suffix: "", label: "Accepted charge sources — grid, solar, vehicle, generator", bitmap: PLUG },
+  { to: 4, decimals: 0, prefix: "", suffix: "", label: "Accepted charge sources — grid, solar, vehicle, generator, any country's rating", bitmap: PLUG },
   { to: 2, decimals: 0, prefix: "", suffix: "-yr", label: "Comprehensive manufacturer's warranty", bitmap: SHIELD },
 ];
 
@@ -88,24 +89,24 @@ const monitoring = [
 
 const useCases = [
   {
-    title: "Humanitarian Aid & NGOs",
-    text: "Power for field clinics, water purification, and comms in disaster response and displacement settings.",
-  },
-  {
-    title: "Defence & Field Operations",
-    text: "Silent, zero-emission — no fuel resupply chain. Recharges from solar, vehicle, or captured grid power.",
-  },
-  {
-    title: "Emergency Services",
-    text: "Backup power for ambulance stations, triage points, and incident command during major incidents.",
-  },
-  {
     title: "Home & Critical Medical Care",
-    text: "Third-party tested at Queens Medical Centre on dialysis machines, hospital beds, and respiratory equipment.",
+    text: "The proving ground: third-party tested at Queens Medical Centre, Nottingham, on dialysis machines, hospital beds, medicine fridges, and respiratory equipment including oxygen concentrators and CPAP/BiPAP machines.",
   },
   {
     title: "Utility & DNO Welfare Support",
-    text: "Deployed via four of the UK's six DNOs for Priority Services Register customers during outages.",
+    text: "Deployed via four of the UK's six DNOs to power exactly this equipment for Priority Services Register customers during outages.",
+  },
+  {
+    title: "Emergency Services",
+    text: "Ambulance stations and triage points run the same oxygen, monitoring, and infusion equipment — proven medical-grade reliability, on demand.",
+  },
+  {
+    title: "Humanitarian Aid & NGOs",
+    text: "Field clinics and displacement camps depend on cold-chain vaccine storage, dialysis, and respiratory support — the same equipment category APKI is proven on, plus power for comms and water purification.",
+  },
+  {
+    title: "Defence & Field Operations",
+    text: "Combat medical units and field hospitals carry the same life-support and diagnostic equipment, silently powered with no fuel resupply chain and no signature.",
   },
 ];
 
@@ -118,7 +119,7 @@ export default function ProductPage() {
         <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-12 px-6 py-20 lg:grid-cols-2 lg:px-10 lg:py-28">
           <Reveal>
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-apki-green">
-              The Product
+              Tested on Real Medical Equipment
             </p>
             <h1 className="mt-6 font-heading text-6xl font-bold leading-[0.95] text-apki-navy sm:text-7xl">
               APKI
@@ -126,19 +127,29 @@ export default function ProductPage() {
               2200Li.
             </h1>
             <p className="mt-6 max-w-md text-apki-charcoal/70">
-              A high-capacity, zero-emission power station built for safe use
-              indoors and in the field — any source in, clean power out.
+              A high-capacity, zero-emission power station independently
+              tested at Queens Medical Centre, Nottingham, to keep dialysis
+              machines, hospital beds, and respiratory equipment running —
+              then built to deploy anywhere.
             </p>
             <div className="mt-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-apki-charcoal/50">
               <PixelUnionJack className="h-3.5 w-7 shrink-0" />
               Designed &amp; manufactured in the UK
             </div>
-            <Link
-              href="/contact"
-              className="mt-8 inline-block rounded-sm bg-apki-green px-7 py-3.5 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:bg-apki-navy"
-            >
-              Request a Deployment
-            </Link>
+            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+              <Link
+                href="/contact"
+                className="inline-block rounded-sm bg-apki-green px-7 py-3.5 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:bg-apki-navy"
+              >
+                Partner With Us
+              </Link>
+              <Link
+                href="/case-studies"
+                className="text-sm font-semibold text-apki-green hover:underline"
+              >
+                See the testing evidence ↗
+              </Link>
+            </div>
           </Reveal>
 
           <Reveal delay={150}>
@@ -278,17 +289,18 @@ export default function ProductPage() {
         </div>
       </section>
 
-      {/* Remote monitoring */}
+      {/* Remote monitoring — the pixel world map earns its place here:
+          this is the capability that tracks every unit, wherever it's deployed */}
       <section className="relative overflow-hidden bg-apki-navy py-20 text-white lg:py-28">
-        <PixelField />
+        <PixelWorldMap />
         <div className="relative z-10 mx-auto max-w-6xl px-6">
           <Reveal>
             <h2 className="font-heading text-3xl font-bold sm:text-4xl">
-              Built-in Wi-Fi &amp; remote monitoring
+              Built-in Wi-Fi &amp; remote monitoring, anywhere in the world
             </h2>
             <p className="mt-4 max-w-lg text-white/70">
-              Every unit is tracked, monitored, and managed remotely — no
-              physical access required.
+              Every unit is tracked, monitored, and managed remotely from the
+              UK — no physical access required, wherever it&apos;s deployed.
             </p>
           </Reveal>
 
@@ -311,13 +323,19 @@ export default function ProductPage() {
         </div>
       </section>
 
-      {/* Use cases */}
+      {/* Use cases — one differentiator (medical-device reliability),
+          expressed across every sector that also depends on it */}
       <section className="bg-white py-20 lg:py-28">
         <div className="mx-auto max-w-6xl px-6 lg:px-10">
           <Reveal>
             <h2 className="font-heading text-3xl font-bold text-apki-navy sm:text-4xl">
-              Where it deploys
+              One differentiator, every sector
             </h2>
+            <p className="mt-4 max-w-2xl text-apki-charcoal/70">
+              Home care, utilities, emergency services, humanitarian aid, and
+              defence all run medical devices in the field. That&apos;s where
+              this reliability applies everywhere.
+            </p>
           </Reveal>
           <div className="mt-12 grid gap-10 border-t border-black/10 pt-10 md:grid-cols-2">
             {useCases.map((uc, i) => (
@@ -341,7 +359,7 @@ export default function ProductPage() {
             href="/contact"
             className="mt-8 inline-block rounded-sm bg-white px-8 py-4 text-sm font-semibold uppercase tracking-wide text-apki-green transition-colors hover:bg-apki-navy hover:text-white"
           >
-            Request a Deployment
+            Partner With Us
           </Link>
         </Reveal>
       </section>
