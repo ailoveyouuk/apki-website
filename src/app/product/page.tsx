@@ -17,6 +17,7 @@ import PixelIcon, {
   WEIGHT,
   WIFI,
 } from "@/components/PixelIcon";
+import PixelUnionJack from "@/components/PixelUnionJack";
 import Reveal from "@/components/Reveal";
 import { specs } from "@/lib/content";
 
@@ -128,6 +129,10 @@ export default function ProductPage() {
               A high-capacity, zero-emission power station built for safe use
               indoors and in the field — any source in, clean power out.
             </p>
+            <div className="mt-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-apki-charcoal/50">
+              <PixelUnionJack className="h-3.5 w-7 shrink-0" />
+              Designed &amp; manufactured in the UK
+            </div>
             <Link
               href="/contact"
               className="mt-8 inline-block rounded-sm bg-apki-green px-7 py-3.5 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:bg-apki-navy"

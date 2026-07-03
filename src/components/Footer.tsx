@@ -1,4 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
+import PixelUnionJack from "@/components/PixelUnionJack";
 
 export default function Footer() {
   return (
@@ -11,6 +13,10 @@ export default function Footer() {
               Pioneers in Energy Equality. Ruggedised, zero-emission portable power —
               built for the moments when power failure is not an option.
             </p>
+            <div className="mt-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-white/60">
+              <PixelUnionJack className="h-3.5 w-7 shrink-0" />
+              Designed &amp; manufactured in Britain
+            </div>
           </div>
 
           <div>
@@ -80,7 +86,24 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-2 border-t border-white/10 pt-6 text-xs text-white/50 md:flex-row md:items-center md:justify-between">
+        <div className="mt-12 flex flex-col items-start gap-4 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-4">
+            <span className="text-xs font-semibold uppercase tracking-wide text-white/50">
+              Supported by
+            </span>
+            <div className="rounded-sm bg-white px-4 py-2.5">
+              <Image
+                src="/images/dbt-great-logo.png"
+                alt="Department for Business and Trade — GREAT Britain & Northern Ireland"
+                width={900}
+                height={235}
+                className="h-7 w-auto sm:h-8"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-6 flex flex-col gap-2 border-t border-white/10 pt-6 text-xs text-white/50 md:flex-row md:items-center md:justify-between">
           <span>
             Copyright {new Date().getFullYear()} APK Industries Ltd, registered in the UK
             no: 07071667

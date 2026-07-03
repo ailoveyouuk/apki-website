@@ -12,6 +12,7 @@ import PixelIcon, {
   SUN,
   TENT,
 } from "@/components/PixelIcon";
+import PixelUnionJack from "@/components/PixelUnionJack";
 import Reveal from "@/components/Reveal";
 import SnakeTimeline from "@/components/SnakeTimeline";
 import { dnoList } from "@/lib/content";
@@ -35,6 +36,10 @@ export default function Home() {
             Zero-emission power stations that charge from anywhere and deploy
             everywhere — home care, disaster response, the field.
           </p>
+          <div className="mt-5 flex items-center justify-center gap-2 text-xs font-semibold uppercase tracking-wide text-apki-charcoal/50">
+            <PixelUnionJack className="h-3.5 w-7 shrink-0" />
+            Designed &amp; manufactured in Britain
+          </div>
           <div className="mt-9 flex flex-wrap justify-center gap-4">
             <Link
               href="/contact"

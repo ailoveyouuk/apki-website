@@ -1,6 +1,8 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import LinkedInFeed from "@/components/LinkedInFeed";
+import PixelUnionJack from "@/components/PixelUnionJack";
 import Reveal from "@/components/Reveal";
 import SnakeTimeline from "@/components/SnakeTimeline";
 
@@ -44,6 +46,10 @@ export default function CompanyPage() {
             power, trusted by four of the UK&apos;s six energy networks — and now
             building toward humanitarian aid and defence deployment worldwide.
           </p>
+          <div className="mt-5 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-apki-charcoal/50">
+            <PixelUnionJack className="h-3.5 w-7 shrink-0" />
+            Proudly British — designed and manufactured in Lincoln, UK
+          </div>
           <a
             href="https://www.linkedin.com/company/apk-industries-ltd"
             target="_blank"
@@ -141,6 +147,31 @@ export default function CompanyPage() {
               </Reveal>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Supported by */}
+      <section className="bg-white py-16">
+        <div className="mx-auto max-w-6xl px-6 lg:px-10">
+          <Reveal className="flex flex-col items-center gap-6 text-center sm:flex-row sm:justify-center sm:text-left">
+            <div className="pixel-frame bg-[#f5f6f2] p-5">
+              <Image
+                src="/images/dbt-great-logo.png"
+                alt="Department for Business and Trade — GREAT Britain & Northern Ireland"
+                width={900}
+                height={235}
+                className="h-10 w-auto sm:h-12"
+              />
+            </div>
+            <p className="max-w-md text-sm text-apki-charcoal/70">
+              APKI is proud to be supported by the{" "}
+              <span className="font-semibold text-apki-navy">
+                Department for Business and Trade
+              </span>{" "}
+              and the <span className="font-semibold text-apki-navy">GREAT</span> campaign,
+              backing British innovation as it goes global.
+            </p>
+          </Reveal>
         </div>
       </section>
 
