@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# sandbox artifact from stale git lock cleanup — safe to ignore/delete
+.git-junk/
