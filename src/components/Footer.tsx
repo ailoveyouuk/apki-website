@@ -110,6 +110,10 @@ export default function Footer() {
           </span>
           <span>Portable Power Stations (PPS) · Zero Emission Generators</span>
         </div>
+
+        <div className="mt-4 text-xs text-white/40">
+          <span>Website built by AI Love You</span>
+        </div>
       </div>
     </footer>
   );
