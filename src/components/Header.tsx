@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import SearchBox from "@/components/SearchBox";
 
 const SHOP_ENABLED = process.env.NEXT_PUBLIC_SHOP_ENABLED === "true";
 
@@ -34,6 +35,7 @@ export default function Header() {
               {link.label}
             </Link>
           ))}
+          <SearchBox />
           <Link
             href="/contact"
             className="hidden rounded-sm bg-apki-green px-5 py-2.5 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:bg-apki-navy lg:inline-block"
@@ -55,6 +57,7 @@ export default function Header() {
 
       {open && (
         <div className="flex flex-col gap-1 border-t border-black/5 bg-white px-6 py-4 md:hidden">
+          <SearchBox variant="inline" onNavigate={() => setOpen(false)} />
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}

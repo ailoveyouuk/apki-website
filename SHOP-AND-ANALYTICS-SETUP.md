@@ -34,3 +34,14 @@ checkout, so it must come from Shopify's Google & YouTube app / GA4 connection.
    diagnostics before turning `NEXT_PUBLIC_SHOP_ENABLED` on.
 6. Old-site cutover: map old apkindustries.com URLs to new ones with 301s,
    keeping `/battery-passport`.
+
+## Site search
+Static search (MiniSearch, no external service). `npm run dev` / `npm run build`
+first run `scripts/build-search-index.mjs`, which writes `public/search-index.json`
+(git-ignored) from the site's pages and `src/lib/resources.ts`. PDF text comes
+from the committed `src/data/pdf-text.json`.
+- **After adding or changing a PDF:** run `npm run search:pdfs` (needs
+  `pdftotext`: `brew install poppler`) and commit `src/data/pdf-text.json`.
+- Shop pages are indexed only when `NEXT_PUBLIC_SHOP_ENABLED=true` at build time.
+- Searches are sent to GA4 as a `search` event (`search_term`, `results_count`)
+  only after analytics consent. `/search` is `noindex` and disallowed in robots.txt.
