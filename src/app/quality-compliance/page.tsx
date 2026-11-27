@@ -4,6 +4,7 @@ import PartnerLogos from "@/components/PartnerLogos";
 import PixelField from "@/components/PixelField";
 import PixelIcon, { CROSS_CIRCLE, SHIELD } from "@/components/PixelIcon";
 import Reveal from "@/components/Reveal";
+import { getResource, resourceHref } from "@/lib/resources";
 import { certifications, compliance, medicalTesting, partnerLogos } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -15,14 +16,17 @@ export const metadata: Metadata = {
 const policies = [
   {
     title: "Ethical Trading & Supplier Code of Conduct",
+    docs: ["ethical-trading", "supplier-code-of-conduct"],
     text: "Human rights, fair labour, and anti-modern-slavery standards apply across APKI's operations and its entire supply chain, with mandatory supplier acknowledgement and regular audits.",
   },
   {
     title: "Waste Management & Circular Economy",
+    docs: ["waste-management", "environmental-policy"],
     text: "Waste reduction, segregation, and recycling programmes across production, packaging, and end-of-life product components, aligned with UK Environment Act 2021 principles.",
   },
   {
     title: "WEEE Compliance",
+    docs: ["weee-directive"],
     text: "A free take-back service for end-of-life APKI electrical products, in full compliance with the Waste Electrical and Electronic Equipment Regulations 2013.",
   },
   {
@@ -156,6 +160,13 @@ export default function QualityCompliancePage() {
       <section className="bg-apki-navy py-20 text-white">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <h2 className="font-heading text-3xl font-bold sm:text-4xl">Our Policies</h2>
+          <p className="mt-4 text-sm text-white/70">
+            Full policy documents, test reports and manuals are on our{" "}
+            <Link href="/resources" className="text-apki-yellow underline">
+              Resources page
+            </Link>
+            .
+          </p>
           <div className="mt-10 grid gap-8 md:grid-cols-2">
             {policies.map((p) => (
               <div key={p.title} className="rounded-sm border border-white/10 bg-white/5 p-6">
@@ -163,6 +174,25 @@ export default function QualityCompliancePage() {
                   {p.title}
                 </h3>
                 <p className="mt-3 text-sm text-white/70">{p.text}</p>
+                {p.docs && (
+                  <ul className="mt-4 space-y-1.5 text-sm">
+                    {p.docs.map((slug) => {
+                      const d = getResource(slug);
+                      return (
+                        <li key={slug}>
+                          <a
+                            href={resourceHref(d)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-apki-yellow underline hover:text-white"
+                          >
+                            {d.title} (PDF) ↓
+                          </a>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
               </div>
             ))}
           </div>

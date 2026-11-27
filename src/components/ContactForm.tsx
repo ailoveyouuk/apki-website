@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { trackEvent } from "@/lib/analytics";
 
 const RECIPIENT = "alan@apkindustries.com";
 
@@ -10,6 +11,7 @@ const INTERESTS = [
   "Emergency services",
   "Utility / DNO procurement",
   "Home / critical medical care",
+  "Buying for home or personal use",
   "Documentation / data sheets",
   "Other",
 ];
@@ -25,9 +27,14 @@ export default function ContactForm() {
     // Deep-linked query param, only knowable client-side — reading it and
     // pre-filling the form here (rather than deriving it during render) is
     // the correct use of an effect, despite the lint heuristic below.
-    const params = new URLSearchParams(window.location.search);
-    if (params.get("enquiry") === "data-sheets") {
+    const enquiry = new URLSearchParams(window.location.search).get("enquiry");
+    if (enquiry === "shop") {
       // eslint-disable-next-line react-hooks/set-state-in-effect
+      setInterest("Buying for home or personal use");
+      setMessage(
+        "I'd like to buy an APKI 2200Li for home or personal use. Please let me know availability, price and delivery."
+      );
+    } else if (enquiry === "data-sheets") {
       setInterest("Documentation / data sheets");
       setMessage(
         "Please send me the full data sheets and technical documentation for the APKI 2200Li."
@@ -84,6 +91,7 @@ export default function ContactForm() {
           subject
         )}&body=${encodeURIComponent(body)}`;
 
+        trackEvent("generate_lead", { form: "contact", interest });
         window.location.href = mailto;
         setOpened(true);
       }}

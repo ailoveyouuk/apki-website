@@ -21,6 +21,7 @@ import PixelIcon, {
 import PixelUnionJack from "@/components/PixelUnionJack";
 import Reveal from "@/components/Reveal";
 import { specs } from "@/lib/content";
+import { formatSize, getResource, resourceHref } from "@/lib/resources";
 
 export const metadata: Metadata = {
   title: "APKI 2200Li Portable Power Station | APKI",
@@ -80,9 +81,41 @@ const specGroups = [
   },
 ];
 
+const protectionLayers = [
+  { title: "Dual protection", text: "BMS single-cell charging, certified up to UL2054." },
+  { title: "Back-up", text: "A secondary BMS is activated if the first should fail." },
+  { title: "Cool under pressure", text: "Units can be used at temperatures up to 50°C." },
+  { title: "PTC protection", text: "Built-in positive temperature coefficient protection." },
+  { title: "Over-discharge protection", text: "Extra safeguards extend your unit's battery life." },
+  { title: "Over-current protection", text: "Integrated measures protect the equipment being used." },
+  { title: "Short-circuit protection", text: "Units are protected against faulty or damaged appliances." },
+];
+
+const range = [
+  { model: "APKI1600LP", chemistry: "Lithium iron phosphate (LiFePO4)", weight: "16.8kg", capacity: "Specification on request", gps: "No" },
+  { model: "APKI 2200Li", chemistry: "Lithium NMC", weight: "18.9kg", capacity: "2,220Wh", gps: "Yes", featured: true },
+  { model: "APKI369", chemistry: "Lithium NMC", weight: "29.5kg / 25.7kg per unit (1 to 3 units)", capacity: "2,880Wh to 8,640Wh", gps: "No" },
+];
+
+const bayPhotos = [
+  { src: "/images/bays/bay-1.jpg", alt: "APKI charging and storage bay, empty, with charging leads in place", w: 1050, h: 1400 },
+  { src: "/images/bays/bay-2.jpg", alt: "Two APKI charging and storage bays side by side", w: 1400, h: 1050 },
+  { src: "/images/bays/bay-3.jpg", alt: "APKI charging and storage bays loaded with power stations and boxed units", w: 1400, h: 1050 },
+  { src: "/images/bays/bay-4.jpg", alt: "APKI charging and storage bay installed against a depot wall", w: 1050, h: 1400 },
+  { src: "/images/bays/bay-5.jpg", alt: "APKI charging and storage bay installed in a utility depot", w: 1050, h: 1400 },
+];
+
+const productDocs = [
+  "user-manual-serial-above-002392",
+  "user-manual-english-impaired-vision",
+  "wifi-instructions",
+  "fault-codes",
+  "un38-3-test-report",
+].map(getResource);
+
 const monitoring = [
   { label: "Asset location tracking", sub: "Know where every unit is, in real time.", bitmap: PIN },
-  { label: "Consumption alerts", sub: "Battery level and power draw, monitored live.", bitmap: WIFI },
+  { label: "Live status & fault codes", sub: "Battery level, power draw and fault codes, updated in real time — so you know when a fresh unit is needed without a site visit.", bitmap: WIFI },
   { label: "G-force impact detection", sub: "Flags mishandling or drops automatically.", bitmap: IMPACT },
   { label: "Unlimited accounts", sub: "Full reporting, no per-seat limits.", bitmap: USERS },
 ];
@@ -289,6 +322,135 @@ export default function ProductPage() {
         </div>
       </section>
 
+      {/* Seven layers of built-in protection */}
+      <section className="bg-[#f5f6f2] py-20 lg:py-28">
+        <div className="mx-auto max-w-6xl px-6 lg:px-10">
+          <Reveal>
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-apki-green">
+              Safety by design
+            </p>
+            <h2 className="mt-4 font-heading text-3xl font-bold text-apki-navy sm:text-4xl">
+              Seven layers of built-in protection
+            </h2>
+            <p className="mt-4 max-w-2xl text-apki-charcoal/70">
+              Alongside a built-in 30mA residual current device (RCD) to
+              BS 7671 18th Edition.
+            </p>
+          </Reveal>
+          <div className="mt-12 grid gap-8 border-t border-black/10 pt-10 sm:grid-cols-2 lg:grid-cols-3">
+            {protectionLayers.map((layer, i) => (
+              <Reveal key={layer.title} delay={i * 80}>
+                <div className="font-heading text-sm font-semibold text-apki-green">
+                  {String(i + 1).padStart(2, "0")}
+                </div>
+                <h3 className="mt-1 font-heading text-lg font-semibold text-apki-navy">
+                  {layer.title}
+                </h3>
+                <p className="mt-2 text-sm text-apki-charcoal/70">{layer.text}</p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* The APKI range */}
+      <section className="bg-white py-20 lg:py-28">
+        <div className="mx-auto max-w-6xl px-6 lg:px-10">
+          <Reveal>
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-apki-green">
+              The range
+            </p>
+            <h2 className="mt-4 font-heading text-3xl font-bold text-apki-navy sm:text-4xl">
+              Developed for vulnerable people during prolonged outages
+            </h2>
+            <p className="mt-4 max-w-2xl text-apki-charcoal/70">
+              APKI power stations are built to run sensitive medical and welfare
+              equipment through a prolonged power cut, silently, with zero
+              emissions, low EMF and no maintenance. Every model charges from
+              mains, a 12/24V vehicle supply or solar, and has 4G/5G
+              connectivity.
+            </p>
+          </Reveal>
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            {range.map((m, i) => (
+              <Reveal key={m.model} delay={i * 120}>
+                <div
+                  className={`h-full border p-6 ${
+                    m.featured ? "border-apki-green" : "border-black/10"
+                  }`}
+                >
+                  <h3 className="font-heading text-2xl font-bold text-apki-navy">
+                    {m.model}
+                  </h3>
+                  <dl className="mt-5 space-y-3 text-sm">
+                    <div>
+                      <dt className="text-xs font-semibold uppercase tracking-wide text-apki-charcoal/50">Battery</dt>
+                      <dd className="text-apki-navy">{m.chemistry}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-xs font-semibold uppercase tracking-wide text-apki-charcoal/50">Capacity</dt>
+                      <dd className="text-apki-navy">{m.capacity}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-xs font-semibold uppercase tracking-wide text-apki-charcoal/50">Weight</dt>
+                      <dd className="text-apki-navy">{m.weight}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-xs font-semibold uppercase tracking-wide text-apki-charcoal/50">Dimensions</dt>
+                      <dd className="text-apki-navy">H335 × W320 × D235mm</dd>
+                    </div>
+                    <div>
+                      <dt className="text-xs font-semibold uppercase tracking-wide text-apki-charcoal/50">GPS tracking</dt>
+                      <dd className="text-apki-navy">{m.gps}</dd>
+                    </div>
+                  </dl>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+          <p className="mt-6 text-xs text-apki-charcoal/50">
+            Need full specifications for another model?{" "}
+            <Link href="/contact?enquiry=data-sheets" className="underline">
+              Request the data sheet
+            </Link>
+            .
+          </p>
+        </div>
+      </section>
+
+      {/* Charging & storage bays */}
+      <section className="bg-[#f5f6f2] py-20 lg:py-28">
+        <div className="mx-auto max-w-6xl px-6 lg:px-10">
+          <Reveal>
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-apki-green">
+              Supplied and installed
+            </p>
+            <h2 className="mt-4 font-heading text-3xl font-bold text-apki-navy sm:text-4xl">
+              Charging &amp; storage bays
+            </h2>
+            <p className="mt-4 max-w-2xl text-apki-charcoal/70">
+              APKI supplies and installs policy-compliant charging and storage
+              bays, so units are ready when they are needed.
+            </p>
+          </Reveal>
+          <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3">
+            {bayPhotos.map((img, i) => (
+              <Reveal key={img.src} delay={i * 80}>
+                <div className="pixel-frame aspect-[4/3] overflow-hidden bg-white">
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    width={img.w}
+                    height={img.h}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Remote monitoring — the pixel world map earns its place here:
           this is the capability that tracks every unit, wherever it's deployed */}
       <section className="relative overflow-hidden bg-apki-navy py-20 text-white lg:py-28">
@@ -320,6 +482,43 @@ export default function ProductPage() {
               </Reveal>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Manuals & downloads */}
+      <section className="bg-[#f5f6f2] py-20">
+        <div className="mx-auto max-w-4xl px-6 lg:px-10">
+          <Reveal>
+            <h2 className="font-heading text-3xl font-bold text-apki-navy sm:text-4xl">
+              Manuals &amp; downloads
+            </h2>
+          </Reveal>
+          <ul className="mt-8 divide-y divide-black/10 border-t border-black/10">
+            {productDocs.map((d) => (
+              <li key={d.slug}>
+                <a
+                  href={resourceHref(d)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center justify-between gap-6 py-4"
+                >
+                  <span className="font-semibold text-apki-navy group-hover:text-apki-green">
+                    {d.title}
+                  </span>
+                  <span className="shrink-0 text-xs font-semibold uppercase tracking-wide text-apki-green">
+                    PDF · {formatSize(d.sizeKb)} ↓
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-6 text-sm text-apki-charcoal/60">
+            The declaration of conformity is available on request.{" "}
+            <Link href="/resources" className="underline">
+              All resources and policies
+            </Link>
+            .
+          </p>
         </div>
       </section>
 

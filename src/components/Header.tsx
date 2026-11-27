@@ -3,8 +3,11 @@
 import Link from "next/link";
 import { useState } from "react";
 
+const SHOP_ENABLED = process.env.NEXT_PUBLIC_SHOP_ENABLED === "true";
+
 const NAV_LINKS = [
   { href: "/product", label: "Product" },
+  ...(SHOP_ENABLED ? [{ href: "/shop", label: "Shop" }] : []),
   { href: "/case-studies", label: "Case Studies" },
   { href: "/quality-compliance", label: "Quality & Compliance" },
   { href: "/company", label: "Company" },

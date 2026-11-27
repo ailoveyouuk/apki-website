@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Analytics from "@/components/Analytics";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/site";
 
 const TITLE = "APKI — Ruggedised Portable Power for Humanitarian & Field Deployment";
@@ -49,6 +50,11 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  // Google Search Console HTML-tag verification (also used to claim the site
+  // in Merchant Center). Set NEXT_PUBLIC_GSC_VERIFICATION to the token only.
+  ...(process.env.NEXT_PUBLIC_GSC_VERIFICATION
+    ? { verification: { google: process.env.NEXT_PUBLIC_GSC_VERIFICATION } }
+    : {}),
 };
 
 export default function RootLayout({
@@ -70,6 +76,7 @@ export default function RootLayout({
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );

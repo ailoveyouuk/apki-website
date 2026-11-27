@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
+import { shopEnabled } from "@/lib/shop";
 
 const routes = [
   { path: "", priority: 1, changeFrequency: "weekly" as const },
@@ -7,8 +8,17 @@ const routes = [
   { path: "/case-studies", priority: 0.7, changeFrequency: "monthly" as const },
   { path: "/quality-compliance", priority: 0.6, changeFrequency: "monthly" as const },
   { path: "/company", priority: 0.8, changeFrequency: "monthly" as const },
+  { path: "/resources", priority: 0.6, changeFrequency: "monthly" as const },
   { path: "/faq", priority: 0.6, changeFrequency: "monthly" as const },
   { path: "/contact", priority: 0.8, changeFrequency: "yearly" as const },
+  // Shop routes are only advertised once the shop is genuinely live.
+  ...(shopEnabled()
+    ? [
+        { path: "/shop", priority: 0.9, changeFrequency: "weekly" as const },
+        { path: "/shop/apki-2200li", priority: 0.9, changeFrequency: "weekly" as const },
+        { path: "/delivery-returns", priority: 0.4, changeFrequency: "yearly" as const },
+      ]
+    : []),
   { path: "/privacy-policy", priority: 0.3, changeFrequency: "yearly" as const },
   { path: "/terms", priority: 0.3, changeFrequency: "yearly" as const },
   { path: "/cookies", priority: 0.3, changeFrequency: "yearly" as const },

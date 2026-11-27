@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import LegalLayout from "@/components/LegalLayout";
+import { ANALYTICS_ENABLED } from "@/lib/analytics";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | APKI",
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function PrivacyPolicyPage() {
   return (
-    <LegalLayout eyebrow="Legal" title="Privacy Policy" updated="3 July 2026">
+    <LegalLayout eyebrow="Legal" title="Privacy Policy" updated="27 November 2026">
       <h2>Who we are</h2>
       <p>
         This website is operated by APK Industries Ltd (&ldquo;APKI&rdquo;,
@@ -46,7 +47,9 @@ export default function PrivacyPolicyPage() {
         </li>
       </ul>
       <p>
-        We do not currently use analytics, advertising, or tracking cookies.
+        {ANALYTICS_ENABLED
+          ? "With your consent, we use Google Analytics to understand how the site is used, and Google advertising features to understand our audience and show relevant adverts. This may involve Google processing data such as your IP address, device and browsing activity, including outside the UK. We do not set these cookies unless you agree, and you can withdraw consent at any time. "
+          : "We do not currently use analytics, advertising, or tracking cookies. "}
         See our <a href="/cookies">Cookie Policy</a> for details.
       </p>
 

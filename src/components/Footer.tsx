@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import PixelUnionJack from "@/components/PixelUnionJack";
+import CookieSettingsLink from "@/components/CookieSettingsLink";
 
 export default function Footer() {
   return (
@@ -25,9 +26,13 @@ export default function Footer() {
             </div>
             <ul className="mt-3 space-y-2 text-sm text-white/80">
               <li><Link href="/product" className="hover:text-white">Product</Link></li>
+              {process.env.NEXT_PUBLIC_SHOP_ENABLED === "true" && (
+                <li><Link href="/shop" className="hover:text-white">Shop</Link></li>
+              )}
               <li><Link href="/case-studies" className="hover:text-white">Case Studies</Link></li>
               <li><Link href="/quality-compliance" className="hover:text-white">Quality &amp; Compliance</Link></li>
               <li><Link href="/company" className="hover:text-white">Company</Link></li>
+              <li><Link href="/resources" className="hover:text-white">Resources</Link></li>
               <li><Link href="/faq" className="hover:text-white">FAQ</Link></li>
               <li><Link href="/contact" className="hover:text-white">Contact</Link></li>
             </ul>
@@ -53,7 +58,11 @@ export default function Footer() {
             <ul className="mt-3 space-y-2 text-sm text-white/80">
               <li><Link href="/privacy-policy" className="hover:text-white">Privacy Policy</Link></li>
               <li><Link href="/terms" className="hover:text-white">Terms &amp; Conditions</Link></li>
+              {process.env.NEXT_PUBLIC_SHOP_ENABLED === "true" && (
+                <li><Link href="/delivery-returns" className="hover:text-white">Delivery &amp; Returns</Link></li>
+              )}
               <li><Link href="/cookies" className="hover:text-white">Cookies</Link></li>
+              <li><CookieSettingsLink className="hover:text-white" /></li>
               <li><Link href="/accessibility" className="hover:text-white">Accessibility</Link></li>
               <li><Link href="/modern-slavery-statement" className="hover:text-white">Modern Slavery Statement</Link></li>
             </ul>
